@@ -5,12 +5,8 @@ contract GreenContract {
 
      enum StateType {
         Active,
-        OfferPlaced,
         PendingValidation,
-        PendingProofValidation,
         Validated,
-        Invalidated,
-        BuyerAccepted,
         ContractCancelled,
         InstallmentPaid,
         ContractEnded
@@ -66,70 +62,28 @@ contract GreenContract {
         return owner;
     }
 
-    function makeOffer(address inputvalidator) external {
+    function getState() public view returns (StateType) {
+        return State;
+    }
+
+    function buyTree(address inputvalidator) external {
         if (inputvalidator == address(0x000)) {
-            revert("makeOffer function need to have a validator address");
+            revert("buyTree function need to have a validator address");
         }
 
         if (State != StateType.Active) {
-            revert("makeOffer function can only be called when in Active state");
+            revert("buyTree function can only be called when in Active state");
         }
 
         if (owner == msg.sender) {
-            revert("makeOffer function cannot be called by the owner ");
+            revert("buyTree function cannot be called by the owner ");
         }
 
         buyer = msg.sender;
         validator = inputvalidator;
-        State = StateType.OfferPlaced;
-
-        emit ContractUpdated(appName, workflowName, "makeOffer", msg.sender);
-    }
-
-    function rejectOffer() public {
- 
-        if (State != StateType.OfferPlaced && owner != msg.sender) {
-            revert("The contract can only be rejected by the owner");
-        }
-        State = StateType.ContractCancelled;
-        emit ContractUpdated(appName, workflowName, "rejectOffer", msg.sender);
-    }
-
-    function acceptOffer() public {
-        if (State != StateType.OfferPlaced) {
-            revert("acceptOffer function can only be called when an offer placed.");
-        }
-
-        if (owner != msg.sender) {
-            revert("acceptOffer function can only be called by the owner");
-        }
-
         State = StateType.PendingValidation;
-        emit ContractUpdated(appName, workflowName, "acceptOffer", msg.sender);
-    }
 
-    function accept() external {
-        if (msg.sender != buyer && State != StateType.Validated) {
-            revert("accept function can only be called by the Buyer when contract is validated");
-        }
-
-        if (State == StateType.Validated) {
-            State = StateType.BuyerAccepted;
-        }
-
-        emit ContractUpdated(appName, workflowName, "accept", msg.sender);
-    }
-
-    function reject() external {
-        if (msg.sender != buyer && State != StateType.Invalidated) {
-            revert("rejept function can only be called by the Buyer when contract is invalidated");
-        }
-
-        if (State == StateType.Invalidated) {
-            State = StateType.ContractCancelled;
-        }
-
-        emit ContractUpdated(appName, workflowName, "reject", msg.sender);
+        emit ContractUpdated(appName, workflowName, "buyTree", msg.sender);
     }
 
     function submitProofOfWork(string memory proofdata) public {
@@ -138,12 +92,12 @@ contract GreenContract {
             revert("Only owner can submit proof of work");
         }
 
-        if (State != StateType.BuyerAccepted && State != StateType.InstallmentPaid) {
-            revert("Proof of work can only be submitted after buyer accepts or an installment is paid");
+        if (State != StateType.InstallmentPaid) {
+            revert("Proof of work can only be submitted after an installment is paid");
         }
 
         newData = proofdata;
-        State = StateType.PendingProofValidation;
+        State = StateType.PendingValidation;
 
         emit ContractUpdated(appName, workflowName, "submitProofOfWork", msg.sender);
     }
@@ -153,21 +107,20 @@ contract GreenContract {
             revert("markValidated function can only be called by the validator");
         }
 
-        if (State == StateType.PendingValidation || State == StateType.PendingProofValidation) {
+        if (State == StateType.PendingValidation) {
             State = StateType.Validated;
         } else {
-            revert("markValidated function can only be called if PendingValidation or PendingProofValidation");
+            revert("markValidated function can only be called if PendingValidation");
         }
+
+        makePayment();
 
         emit ContractUpdated(appName, workflowName, "markValidated", msg.sender);
     }
 
-    function acceptProof() external {
-        if (msg.sender != buyer && State != StateType.Validated) {
-            revert("accept function can only be called by the Buyer when contract is validated");
-        }
-
-        uint256 payment = listPrice / installments;
+    function makePayment() internal {
+ 
+         uint256 payment = listPrice / installments;
         // XXX Make payment
         
         installments--;
@@ -179,8 +132,6 @@ contract GreenContract {
         } else {
             State = StateType.InstallmentPaid;
         }
-
-        emit ContractUpdated(appName, workflowName, "acceptProof", msg.sender);
     }
 
     function markInvalidated() external {
@@ -188,12 +139,13 @@ contract GreenContract {
             revert("markInvalidated function can only be called by the validator");
         }
 
-        if (State == StateType.PendingValidation || State == StateType.PendingProofValidation) {
-            State = StateType.Invalidated;
+        if (State == StateType.PendingValidation) {
+            State = StateType.ContractCancelled;
         } else {
             revert("markInvalidated function can only be called if pendingValidation");
         }
 
         emit ContractUpdated(appName, workflowName, "markInvalidated", msg.sender);
     }
+
 }
