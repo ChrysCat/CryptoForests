@@ -1,12 +1,14 @@
-const SimpleStorage = artifacts.require('SimpleStorage');
+const GreenContract = artifacts.require('GreenContract');
 
-contract('SimpleStorage', (accounts) => {
-    it('should store a value', async () => {
-        const simpleStorageInstance = await SimpleStorage.deployed();
-        // Set value of 89
-        await simpleStorageInstance.set(89, { from: accounts[0] });
+contract('GreenContract', (accounts) => {
+    it('should store a tree', async () => {
+        const greenContract = await GreenContract.deployed();
+        // Set a tree
+        await greenContract.setTree("MyTree", 120, 12, { from: accounts[0] });
         // Get stored value
-        const storedData = await simpleStorageInstance.get();
-        assert.equal(storedData, 89, 'The value 89 was not stored.');
+        const price = await greenContract.getPrice();
+        assert.equal(price, 120, 'The price 120 was not stored.');
+        const installments = await greenContract.getInstallments();
+        assert.equal(installments, 12, 'The installments 12 was not stored.');
     });
 });
