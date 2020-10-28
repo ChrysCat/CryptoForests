@@ -6,6 +6,7 @@ const { join } = require('path');
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 
 const mnemonic = fs.readFileSync(".mnemonic").toString().trim();
+const mnemonic_rinkeby = fs.readFileSync(".mnemonic_rinkeby").toString().trim();
 
 // curl https://public-node.testnet.rsk.co/2.0.1/ -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_gasPrice","params":[],"id":1}' > .gas-price-testnet.json
 
@@ -41,7 +42,7 @@ module.exports = {
     rinkeby: {
       provider: function () {
         const apiKey = '7afa2766c5c14e63b00e0935c24b32b5';
-        return new HDWalletProvider(privateKey, `https://rinkeby.infura.io/v3/${apiKey}`)
+        return new HDWalletProvider(mnemonic_rinkeby, `https://rinkeby.infura.io/v3/${apiKey}`)
       },
       network_id: 4,
       gasPrice: 15000000001,

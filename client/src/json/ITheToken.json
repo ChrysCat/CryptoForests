@@ -17,25 +17,25 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.5.16+commit.9c3226ce\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"receiver\",\"type\":\"address\"}],\"name\":\"mint\",\"outputs\":[],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/home/leledumbodev/postcovid-devpost/contracts/ITheToken.sol\":\"ITheToken\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/leledumbodev/postcovid-devpost/contracts/ITheToken.sol\":{\"keccak256\":\"0xfc2c56bd9aba2135d8ff97cce0cd47b9cab30fdbcafd26c1a6e0d9cd2e137908\",\"urls\":[\"bzz-raw://bbd5338fda2f8d12c52d9be506c53f3d1f487cdc008d9d1f23a4165fbb508c81\",\"dweb:/ipfs/QmS3qp9RQtbfsLhLY6V3BPQKBZaKzhKJXBYMbFd5TgH35E\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.5.16+commit.9c3226ce\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"receiver\",\"type\":\"address\"}],\"name\":\"mint\",\"outputs\":[],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/home/leledumbodev/devpost/CryptoForests/contracts/ITheToken.sol\":\"ITheToken\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/leledumbodev/devpost/CryptoForests/contracts/ITheToken.sol\":{\"keccak256\":\"0xfc2c56bd9aba2135d8ff97cce0cd47b9cab30fdbcafd26c1a6e0d9cd2e137908\",\"urls\":[\"bzz-raw://bbd5338fda2f8d12c52d9be506c53f3d1f487cdc008d9d1f23a4165fbb508c81\",\"dweb:/ipfs/QmS3qp9RQtbfsLhLY6V3BPQKBZaKzhKJXBYMbFd5TgH35E\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.5.0;\n\ninterface ITheToken {\n   function mint(address receiver) external payable;\n}\n",
-  "sourcePath": "/home/leledumbodev/postcovid-devpost/contracts/ITheToken.sol",
+  "sourcePath": "/home/leledumbodev/devpost/CryptoForests/contracts/ITheToken.sol",
   "ast": {
-    "absolutePath": "/home/leledumbodev/postcovid-devpost/contracts/ITheToken.sol",
+    "absolutePath": "/home/leledumbodev/devpost/CryptoForests/contracts/ITheToken.sol",
     "exportedSymbols": {
       "ITheToken": [
-        7
+        544
       ]
     },
-    "id": 8,
+    "id": 545,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1,
+        "id": 538,
         "literals": [
           "solidity",
           "^",
@@ -43,7 +43,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:0"
+        "src": "0:23:1"
       },
       {
         "baseContracts": [],
@@ -51,9 +51,9 @@
         "contractKind": "interface",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 7,
+        "id": 544,
         "linearizedBaseContracts": [
-          7
+          544
         ],
         "name": "ITheToken",
         "nodeType": "ContractDefinition",
@@ -61,23 +61,23 @@
           {
             "body": null,
             "documentation": null,
-            "id": 6,
+            "id": 543,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "mint",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 4,
+              "id": 541,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3,
+                  "id": 540,
                   "name": "receiver",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6,
-                  "src": "64:16:0",
+                  "scope": 543,
+                  "src": "64:16:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -85,10 +85,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 2,
+                    "id": 539,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "64:7:0",
+                    "src": "64:7:1",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -99,39 +99,39 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "63:18:0"
+              "src": "63:18:1"
             },
             "returnParameters": {
-              "id": 5,
+              "id": 542,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "98:0:0"
+              "src": "98:0:1"
             },
-            "scope": 7,
-            "src": "50:49:0",
+            "scope": 544,
+            "src": "50:49:1",
             "stateMutability": "payable",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 8,
-        "src": "25:76:0"
+        "scope": 545,
+        "src": "25:76:1"
       }
     ],
-    "src": "0:102:0"
+    "src": "0:102:1"
   },
   "legacyAST": {
-    "absolutePath": "/home/leledumbodev/postcovid-devpost/contracts/ITheToken.sol",
+    "absolutePath": "/home/leledumbodev/devpost/CryptoForests/contracts/ITheToken.sol",
     "exportedSymbols": {
       "ITheToken": [
-        7
+        544
       ]
     },
-    "id": 8,
+    "id": 545,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1,
+        "id": 538,
         "literals": [
           "solidity",
           "^",
@@ -139,7 +139,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:0"
+        "src": "0:23:1"
       },
       {
         "baseContracts": [],
@@ -147,9 +147,9 @@
         "contractKind": "interface",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 7,
+        "id": 544,
         "linearizedBaseContracts": [
-          7
+          544
         ],
         "name": "ITheToken",
         "nodeType": "ContractDefinition",
@@ -157,23 +157,23 @@
           {
             "body": null,
             "documentation": null,
-            "id": 6,
+            "id": 543,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "mint",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 4,
+              "id": 541,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3,
+                  "id": 540,
                   "name": "receiver",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6,
-                  "src": "64:16:0",
+                  "scope": 543,
+                  "src": "64:16:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -181,10 +181,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 2,
+                    "id": 539,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "64:7:0",
+                    "src": "64:7:1",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -195,26 +195,26 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "63:18:0"
+              "src": "63:18:1"
             },
             "returnParameters": {
-              "id": 5,
+              "id": 542,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "98:0:0"
+              "src": "98:0:1"
             },
-            "scope": 7,
-            "src": "50:49:0",
+            "scope": 544,
+            "src": "50:49:1",
             "stateMutability": "payable",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 8,
-        "src": "25:76:0"
+        "scope": 545,
+        "src": "25:76:1"
       }
     ],
-    "src": "0:102:0"
+    "src": "0:102:1"
   },
   "compiler": {
     "name": "solc",
@@ -222,7 +222,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.0",
-  "updatedAt": "2020-10-24T10:06:35.800Z",
+  "updatedAt": "2020-10-28T15:08:51.456Z",
   "devdoc": {
     "methods": {}
   },
