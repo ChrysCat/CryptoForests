@@ -186,13 +186,11 @@ class TheManager {
   async swap(amount) {
     const wei = utils.parseEther(amount);
     const tx = await this.scCoin.redeem(wei);
-    console.log({ tx });
     try {
       await tx.wait();
     } catch (err) {
       console.error(err);
     }
-    console.log({ tx });
     return tx.hash;
   }
 
@@ -217,13 +215,11 @@ class TheManager {
 
   async nftSetTree(data, listPrice, installments) {
     const tx = await this.scNft.setTree(data, utils.parseEther(listPrice), installments);
-    console.log({ tx });
     try {
       await tx.wait();
     } catch (err) {
       console.error(err);
     }
-    console.log({ tx });
     return tx.hash;
   }
 
@@ -262,6 +258,35 @@ class TheManager {
     this.ownedTrees = ownedTrees;
     this.validatorTrees = validatorTrees;
   }
+
+  async nftBuyTreeRequirement(id) {
+    if (!this.address) return 1;
+    const balanceGas = await this.signer.getBalance();
+
+    const item = await this.scNft.getTreeData(id);
+    const listPrice = item[3];
+    const installments = item[4];
+    const price = listPrice.mul(installments);
+
+    if (balanceGas.lte(price)) return 2;
+    return 0;
+  }
+
+  async nftBuyTree(id) {
+    const item = await this.scNft.getTreeData(id);
+    const listPrice = item[3];
+    const installments = item[4];
+    const price = listPrice.mul(installments);
+
+    const tx = await this.scNft.buyTree(id, { value: price.toString() });
+    try {
+      await tx.wait();
+    } catch (err) {
+      console.error(err);
+    }
+    return tx.hash;
+  }
+
 
 }
 

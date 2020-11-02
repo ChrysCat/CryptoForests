@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Button, Text, ActivityIndicator, TextInput, Picker, TouchableOpacity, FlatList } from 'react-native';
+import { View, Button, Text, ActivityIndicator, TextInput, Picker, TouchableOpacity, FlatList, Image } from 'react-native';
 import { observer } from "mobx-react";
+import Icon from 'react-native-vector-icons/FontAwesome';
 import Lib from './Lib';
 import manager from './Manager';
 
@@ -93,7 +94,7 @@ class UserHome extends React.Component {
     const btn2 = 'SWAP ' + manager.coinSymbol + ' TO ' + manager.gasSymbol;
     return (
       <View style={c}>
-        <Button disabled={disabled} title='TREES FOR SALE' onPress={() => this.props.history.push('/user-tree-for-sale')} />
+        <Button disabled={disabled} title='TREES FOR SALE' onPress={() => this.props.history.push('/user-for-sale')} />
         <View style={{ height: 10 }} />
         <Button disabled={disabled} title={btn2} onPress={() => this.toPage('inputSwap')} />
         <View style={{ height: 10 }} />
@@ -256,28 +257,47 @@ class UserHome extends React.Component {
   }
 
   renderRow(item) {
+    const id = item[0].toString();
+    const json = JSON.parse(item[2]);
+    const gps = json.gps;
+    const species = json.species;
+    const hash = json.initialPhotoIpfsHash;
+    const url = 'https://ipfs.infura.io/ipfs/' + hash;
+
+    const states = [
+      'For Sale',
+      'Pending Validation',
+      'Installment Paid',
+      'Contract Cancelled',
+      'Contract Ended'
+    ];
+
+    const listPrice = item[3].toString();
+    const installments = item[4];
+    const state = states[item[5]];
+
     return (
-      <View key={item.id} style={{ padding: 10, flexDirection: 'row' }}>
-        <View style={{ flex: 1 }}>
-          <Text style={{ textAlign: 'left', fontWeight: 'bold' }}>TREE #{item.id}</Text>
-          <Text style={{ textAlign: 'left' }}>GPS: 22,-33</Text>
-          <Text style={{ textAlign: 'left' }}>Species: Lorem Ipsum</Text>
-          <Text style={{ textAlign: 'left' }}>State: Pending Validation/Validated/Bought</Text>
-          <Text style={{ textAlign: 'left' }}>Proof of work due date: 30/10/2020</Text>
+      <View key={id} style={{ padding: 10, flexDirection: 'row' }}>
+        <View style={{ alignItems: 'center', justifyContent: 'center', padding: 10 }}>
+          <Image
+            style={{ width: 100, height: 100 }}
+            source={{ uri: url }}
+          />
         </View>
-        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-          <Text>DETAIL</Text>
+        <View style={{ flex: 1, paddingLeft: 10, justifyContent: 'center' }}>
+          <Text style={{ textAlign: 'left', fontWeight: 'bold' }}>TREE #{id}</Text>
+          <Text style={{ textAlign: 'left' }}>GPS: {gps}</Text>
+          <Text style={{ textAlign: 'left' }}>Species: {species}</Text>
         </View>
+        <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center' }} onPress={() => this.exploreNft()}>
+          <Icon name="search" size={30} color={'gray'} />
+        </TouchableOpacity>
       </View>
     );
   }
 
   renderList() {
-    const rows = [];
-
-    for (let i = 0; i < 50; i++) {
-      rows.push({ id: i });
-    }
+    const rows = manager.ownedTrees;
 
     return (
       <View style={{ flex: 1 }}>

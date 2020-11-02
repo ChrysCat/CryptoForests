@@ -27,8 +27,8 @@ class Home extends React.Component {
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <Icon name="leaf" size={80} />
           <View style={{ height: 10 }} />
-          <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>APP TITLE</Text>
-          <Text style={{ textAlign: 'center' }}>THIS IS APP SLOGAN</Text>
+          <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>CRYPTO TREES</Text>
+          <Text style={{ textAlign: 'center' }}>BLOCKCHAIN FOR GREEN WORLD</Text>
         </View>
         <View style={{ padding: 10, borderTopWidth: 1, borderTopColor: 'gainsboro' }}>
           <Button disabled={disabled} title='USER MENU' onPress={() => this.navigateTo('/user-home')} />

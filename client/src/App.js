@@ -10,6 +10,7 @@ import Connection from './Connection';
 import Wallet from './Wallet';
 import Home from './Home';
 import UserHome from './UserHome';
+import UserForSale from './UserForSale';
 import VendorTreeList from './VendorTreeList';
 import VendorTreeCreate from './VendorTreeCreate';
 import VendorTreeDetail from './VendorTreeDetail';
@@ -69,6 +70,7 @@ class App extends React.Component {
               <Router>
                 <Switch>
                   <Route path="/user-home" component={UserHome} />
+                  <Route path="/user-for-sale" component={UserForSale} />
                   <Route path="/vendor-home" component={VendorTreeList} />
                   <Route path="/vendor-tree-create" component={VendorTreeCreate} />
                   <Route path="/vendor-tree-detail" component={VendorTreeDetail} />
