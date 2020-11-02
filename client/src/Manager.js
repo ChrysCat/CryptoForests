@@ -5,6 +5,7 @@ import Lib from './Lib';
 
 const ethers = require('ethers');
 const utils = ethers.utils;
+const BigNumber = ethers.BigNumber;
 const URL_EXPLORER = 'https://explorer.testnet.rsk.co/tx/';
 const URL_EXPLORER_TOKEN = 'https://explorer.testnet.rsk.co/address/';
 const URL_EXPLORER_NFT = 'https://explorer.testnet.rsk.co/address/';
@@ -43,8 +44,13 @@ class TheManager {
   nftSymbol = 'NFT';
   nftBalance = '0';
 
+  vendorTrees = [];
+  ownedTrees = [];
+  saleTrees = [];
+  validatorTrees = [];
+
   constructor() {
-    this.interval = setInterval(() => this.ticker(), 1000);
+    this.interval = setInterval(() => this.ticker(), 5000);
   }
 
   async ticker() {
@@ -88,10 +94,10 @@ class TheManager {
     scAddress = THENFT_ADDRESS;
 
     const scNft = new ethers.Contract(scAddress, scAbi, signer);
-    const mintCost = await scNft.mintCost();
-    const mintTokenCost = await scNft.mintTokenCost();
+    // const mintCost = await scNft.mintCost();
+    // const mintTokenCost = await scNft.mintTokenCost();
     const nftCoinAddress = await scNft.tokenAddress();
-    const nftCoinReward = mintTokenCost.div(2);
+    // const nftCoinReward = mintTokenCost.div(2);
     const nftSymbol = await scNft.symbol();
 
     this.address = address;
@@ -102,11 +108,11 @@ class TheManager {
     this.coinSymbol = coinSymbol;
 
     this.scNft = scNft;
-    this.nftMintCost = utils.formatEther(mintCost.toString());
-    this.nftMintTokenCost = utils.formatEther(mintTokenCost.toString());
+    // this.nftMintCost = utils.formatEther(mintCost.toString());
+    // this.nftMintTokenCost = utils.formatEther(mintTokenCost.toString());
     this.nftCoinAddress = nftCoinAddress;
     this.nftAddress = scNft.address;
-    this.nftCoinReward = utils.formatEther(nftCoinReward.toString());
+    // this.nftCoinReward = utils.formatEther(nftCoinReward.toString());
     this.nftSymbol = nftSymbol;
 
     await this.refresh();
@@ -131,6 +137,8 @@ class TheManager {
     const currentMultiplier = await scCoin.getCurrentMultiplier();
 
     const nftBalance = await scNft.balanceOf(address);
+
+    await this.getTrees();
 
     this.coinBalance = utils.formatEther(balanceCoin);
     this.realCoinBalance = utils.formatEther(realBalanceCoin);
@@ -207,6 +215,54 @@ class TheManager {
     return utils.formatEther(utils.parseEther(amount));
   }
 
+  async nftSetTree(data, listPrice, installments) {
+    const tx = await this.scNft.setTree(data, utils.parseEther(listPrice), installments);
+    console.log({ tx });
+    try {
+      await tx.wait();
+    } catch (err) {
+      console.error(err);
+    }
+    console.log({ tx });
+    return tx.hash;
+  }
+
+  async getTrees() {
+    let numTrees = await this.scNft.getTreeCount();
+    const address = this.address.toLowerCase();
+    numTrees = numTrees.toNumber();
+    const vendorTrees = [];
+    const ownedTrees = [];
+    const saleTrees = [];
+    const validatorTrees = [];
+
+    for (let i = 0; i < numTrees; i++) {
+      const data = await this.scNft.getTreeData(i);
+      if (data[1].toLowerCase() === address) {
+        vendorTrees.push(data);
+      }
+
+      const state = data[5];
+      if (state === 0) {
+        saleTrees.push(data);
+      } else if (state === 1) {
+        validatorTrees.push(data);
+      }
+
+      if (state !== 0) { // state not for sale
+        const owner = await this.scNft.ownerOf('' + i);
+        if (owner.toLowerCase() === address) {
+          ownedTrees.push(data);
+        }
+      }
+    }
+
+    this.vendorTrees = vendorTrees;
+    this.saleTrees = saleTrees;
+    this.ownedTrees = ownedTrees;
+    this.validatorTrees = validatorTrees;
+  }
+
 }
 
 decorate(TheManager, {
@@ -232,7 +288,11 @@ decorate(TheManager, {
   nftCoinAddress: observable,
   nftCoinReward: observable,
   nftSymbol: observable,
-  nftBalance: observable
+  nftBalance: observable,
+  vendorTrees: observable,
+  saleTrees: observable,
+  ownedTrees: observable,
+  validatorTrees: observable
 });
 
 const instance = new TheManager();

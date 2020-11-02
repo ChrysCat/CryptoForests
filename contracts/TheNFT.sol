@@ -11,7 +11,7 @@ contract TheNFT is Ownable, ERC721Full {
   address payable public tokenAddress;
 
   enum StateType {
-      Active,
+      ForSale,
       PendingValidation,
       InstallmentPaid,
       ContractCancelled,    
@@ -69,7 +69,7 @@ contract TheNFT is Ownable, ERC721Full {
         inputdata,
         price,
         inputInstallments,
-        StateType.PendingValidation
+        StateType.ForSale
       )
     );
 
@@ -111,6 +111,9 @@ contract TheNFT is Ownable, ERC721Full {
 
     ITheToken(tokenAddress).mint.value(toCoin)(msg.sender); // buyer receives coin
     _mint(msg.sender, g.id);                                // buyer receives nft attached to greencontract id
+
+    // on bought, set state to not for sale and not on pending validation
+    greenContractList[greenContractIndex].State = StateType.InstallmentPaid;
 
     // send vendor money later after proof validation
     // send validator money later after proof validation

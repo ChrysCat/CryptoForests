@@ -72,10 +72,13 @@ class Connection extends React.Component {
   renderHome() {
     const disabled = manager.busy;
     return (
-      <View style={c}>
-        <Text style={s}>LOGIN TO WALLET</Text>
-        <View style={{ height: 10 }} />
-        <Button disabled={disabled} title='START' onPress={() => this.startWallet()} />
+      <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, padding: 10, alignItems: 'center', justifyContent: 'center' }}>
+          <Text style={s}>LOGIN TO WALLET</Text>
+        </View>
+        <View style={{ padding: 10 }}>
+          <Button disabled={disabled} title='START' onPress={() => this.startWallet()} />
+        </View>
       </View>
     );
   }
@@ -83,16 +86,24 @@ class Connection extends React.Component {
   renderConnected() {
     const disabled = manager.busy;
     const address = manager.address;
+    const gasSymbol = manager.gasSymbol;
+    const gasBalance = manager.gasBalance;
+
     return (
-      <View style={c}>
-        <Text> </Text>
-        <TouchableOpacity disabled={disabled} title='SAVE ADDRESS TO CLIPBOARD' onPress={() => this.saveAddress()}>
-          <Text style={s}>WALLET ADDRESS</Text>
-          <Text style={s}>{address}</Text>
-        </TouchableOpacity>
-        <Text> </Text>
-        <View style={{ height: 10 }} />
-        <View style={{ flexDirection: 'row' }}>
+      <View style={{ flex: 1 }}>
+        <View style={{ borderBottomWidth: 1, borderColor: 'gainsboro' }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10 }}>
+            <Text>{gasSymbol}</Text>
+            <Text>{gasBalance}</Text>
+          </View>
+        </View>
+        <View style={{ flex: 1, padding: 10, alignItems: 'center', justifyContent: 'center' }}>
+          <TouchableOpacity disabled={disabled} title='SAVE ADDRESS TO CLIPBOARD' onPress={() => this.saveAddress()}>
+            <Text style={s}>WALLET ADDRESS</Text>
+            <Text style={s}>{address}</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{ flexDirection: 'row', padding: 10 }}>
           <View style={{ flex: 1 }}>
             <Button disabled={disabled} title='REFRESH' onPress={() => this.refresh()} />
           </View>
@@ -107,10 +118,8 @@ class Connection extends React.Component {
 
   renderBusy() {
     return (
-      <View style={c}>
-        <Text> </Text>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text style={s}><ActivityIndicator /></Text>
-        <Text> </Text>
       </View>
     );
   }
@@ -128,7 +137,7 @@ class Connection extends React.Component {
     }
 
     return (
-      <View style={{ borderWidth: 1, borderColor: 'gainsboro' }}>
+      <View style={{ flex: 1 }}>
         {page}
       </View>
     );

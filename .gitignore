@@ -25,3 +25,5 @@ yarn-error.log*
 .mnemonic
 .mnemonic_rinkeby
 /backup
+# Local Netlify folder
+.netlify

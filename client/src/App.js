@@ -1,8 +1,18 @@
 import React from 'react';
 import { View, Dimensions, ScrollView, Text } from 'react-native';
-
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 import Connection from './Connection';
 import Wallet from './Wallet';
+import Home from './Home';
+import UserHome from './UserHome';
+import VendorTreeList from './VendorTreeList';
+import VendorTreeCreate from './VendorTreeCreate';
+import VendorTreeDetail from './VendorTreeDetail';
 
 class App extends React.Component {
   constructor(props) {
@@ -30,10 +40,10 @@ class App extends React.Component {
   }
 
   render() {
+    const wh = Dimensions.get('window').height;
     let style = { flex: 1, backgroundColor: 'white' };
     let space = 10;
     if (this.state.landscape) {
-      const wh = Dimensions.get('window').height;
       const w = wh;
       style = { flex: 1, width: w * (480 / 640), alignSelf: 'center', backgroundColor: 'white' };
       space = 0;
@@ -53,14 +63,22 @@ class App extends React.Component {
           }
         `}</style>
 
-        <View>
+        <View style={{ height: wh, backgroundColor: 'gainsboro' }}>
           <View style={style}>
-            <View style={{ paddingHorizontal: space, backgroundColor: 'white' }}>
-              <Text> </Text>
-              <Wallet />
-              <Text> </Text>
+            <View style={{ flex: 1 }}>
+              <Router>
+                <Switch>
+                  <Route path="/user-home" component={UserHome} />
+                  <Route path="/vendor-home" component={VendorTreeList} />
+                  <Route path="/vendor-tree-create" component={VendorTreeCreate} />
+                  <Route path="/vendor-tree-detail" component={VendorTreeDetail} />
+                  <Route path="/" component={Home} />
+                </Switch>
+              </Router>
+            </View>
+            <View style={{ height: 10, backgroundColor: 'gainsboro' }} />
+            <View style={{ height: 150, justifyContent: 'center' }}>
               <Connection />
-              <Text> </Text>
             </View>
           </View>
         </View>

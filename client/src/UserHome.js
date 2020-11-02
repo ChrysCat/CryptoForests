@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Button, Text, ActivityIndicator, TextInput, Picker, TouchableOpacity } from 'react-native';
+import { View, Button, Text, ActivityIndicator, TextInput, Picker, TouchableOpacity, FlatList } from 'react-native';
 import { observer } from "mobx-react";
 import Lib from './Lib';
 import manager from './Manager';
@@ -9,7 +9,7 @@ const t = { textAlign: 'center', fontWeight: 'bold' };
 const s = { textAlign: 'center' };
 const c = { padding: 10, justifyContent: 'center' };
 
-class Wallet extends React.Component {
+class UserHome extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,6 +32,11 @@ class Wallet extends React.Component {
   async saveNftAddress() {
     await clipboardy.write(manager.coinAddress);
     Lib.showToast('COIN ADDRESS SAVED TO CLIPBOARD');
+  }
+
+  async saveToClipboard(name, val) {
+    await clipboardy.write(val);
+    Lib.showToast(name.toUpperCase() + ' SAVED TO CLIPBOARD');
   }
 
   renderFooter() {
@@ -57,65 +62,6 @@ class Wallet extends React.Component {
     );
   }
 
-  renderVars() {
-    const disabled = manager.busy;
-
-    const coinAddress = manager.coinAddress;
-    const coinSymbol = manager.coinSymbol;
-    const gasSymbol = manager.gasSymbol;
-    const totalSupply = manager.totalSupply;
-    const realTotalSupply = manager.realTotalSupply;
-    const gasLockedInPool = manager.gasLockedInPool;
-    const coinBalance = manager.coinBalance;
-    const realCoinBalance = manager.realCoinBalance;
-    const endMultiplier = manager.endMultiplier;
-    const currentMultiplier = manager.currentMultiplier;
-
-    const nftMintCost = manager.nftMintCost;
-    const nftMintTokenCost = manager.nftMintTokenCost;
-    const nftCoinAddress = manager.nftCoinAddress;
-    const nftAddress = manager.nftAddress;
-
-    const big = { textAlign: 'center', fontSize: 30 };
-
-    return (
-      <View style={c}>
-        <TouchableOpacity onPress={() => this.saveNftAddress()}>
-          <Text style={s}>NFT ADDRESS</Text>
-          <Text style={s}>{nftAddress}</Text>
-        </TouchableOpacity>
-        <Text style={s}>NFT MINT COST</Text>
-        <Text style={s}>{nftMintCost} {gasSymbol}</Text>
-        <Text style={s}>PART TO MINT COIN</Text>
-        <Text style={s}>{nftMintTokenCost} {gasSymbol}</Text>
-        <Text> </Text>
-        <TouchableOpacity onPress={() => this.saveCoinAddress()}>
-          <Text style={s}>{coinSymbol} ADDRESS</Text>
-          <Text style={s}>{coinAddress}</Text>
-        </TouchableOpacity>
-        <Text> </Text>
-        <Text style={s}>CURRENT MULTIPLIER</Text>
-        <Text style={s}>{currentMultiplier}</Text>
-        <Text style={s}>END MULTIPLIER</Text>
-        <Text style={s}>{endMultiplier}</Text>
-        <Text> </Text>
-        <Text style={s}>TOTAL SUPPLY</Text>
-        <Text style={s}>{totalSupply} {coinSymbol}</Text>
-        <Text style={s}>REAL TOTAL SUPPLY</Text>
-        <Text style={s}>{realTotalSupply} {coinSymbol}</Text>
-        <Text> </Text>
-        <Text style={s}>ASSETS IN POOL</Text>
-        <Text style={s}>{gasLockedInPool} {gasSymbol}</Text>
-        <Text> </Text>
-        <Text style={big}>{coinBalance}</Text>
-        <Text style={s}>{coinSymbol} OWNED</Text>
-        <Text> </Text>
-        <Text style={s}>REAL BALANCE</Text>
-        <Text style={s}>{realCoinBalance} {coinSymbol}</Text>
-      </View>
-    );
-  }
-
   renderSimpleVars() {
     const disabled = manager.busy;
 
@@ -128,12 +74,7 @@ class Wallet extends React.Component {
 
     return (
       <View style={c}>
-        <TouchableOpacity onPress={() => manager.openNft()}>
-          <Text style={big}>{nftBalance}</Text>
-          <Text style={s}>{nftSymbol} OWNED</Text>
-        </TouchableOpacity>
-        <Text> </Text>
-        <TouchableOpacity onPress={() => manager.openToken()}>
+        <TouchableOpacity onPress={() => this.saveToClipboard(coinSymbol + ' OWNED', coinBalance)}>
           <Text style={big}>{coinBalance}</Text>
           <Text style={s}>{coinSymbol} OWNED</Text>
         </TouchableOpacity>
@@ -152,10 +93,11 @@ class Wallet extends React.Component {
     const btn2 = 'SWAP ' + manager.coinSymbol + ' TO ' + manager.gasSymbol;
     return (
       <View style={c}>
-        {/* <Button disabled={disabled} title={btn1} onPress={() => this.toPage('inputBuy')} />
-        <View style={{ height: 10 }} /> */}
+        <Button disabled={disabled} title='TREES FOR SALE' onPress={() => this.props.history.push('/user-tree-for-sale')} />
+        <View style={{ height: 10 }} />
         <Button disabled={disabled} title={btn2} onPress={() => this.toPage('inputSwap')} />
-        <Text> </Text>
+        <View style={{ height: 10 }} />
+        <Button disabled={disabled} title='BACK' onPress={() => this.props.history.goBack()} />
       </View>
     );
   }
@@ -287,8 +229,6 @@ class Wallet extends React.Component {
             <Button disabled={disabled} title='CANCEL' onPress={() => this.setState({ show: 'home' })} />
           </View>
         </View>
-
-
       </View>
     );
 
@@ -315,6 +255,45 @@ class Wallet extends React.Component {
     );
   }
 
+  renderRow(item) {
+    return (
+      <View key={item.id} style={{ padding: 10, flexDirection: 'row' }}>
+        <View style={{ flex: 1 }}>
+          <Text style={{ textAlign: 'left', fontWeight: 'bold' }}>TREE #{item.id}</Text>
+          <Text style={{ textAlign: 'left' }}>GPS: 22,-33</Text>
+          <Text style={{ textAlign: 'left' }}>Species: Lorem Ipsum</Text>
+          <Text style={{ textAlign: 'left' }}>State: Pending Validation/Validated/Bought</Text>
+          <Text style={{ textAlign: 'left' }}>Proof of work due date: 30/10/2020</Text>
+        </View>
+        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+          <Text>DETAIL</Text>
+        </View>
+      </View>
+    );
+  }
+
+  renderList() {
+    const rows = [];
+
+    for (let i = 0; i < 50; i++) {
+      rows.push({ id: i });
+    }
+
+    return (
+      <View style={{ flex: 1 }}>
+        <FlatList
+          data={rows}
+          renderItem={({ item, index }) => this.renderRow(item)}
+          ItemSeparatorComponent={() => {
+            return (
+              <View style={{ backgroundColor: 'gainsboro', height: 1 }} />
+            );
+          }}
+        />
+      </View>
+    );
+  }
+
   render() {
     let page = this.renderHome();
     if (this.state.show === 'inputBuy') page = this.renderInputBuy();
@@ -322,18 +301,24 @@ class Wallet extends React.Component {
     else if (this.state.show === 'inputSwap') page = this.renderInputSwap();
 
     return (
-      <View style={{ borderWidth: 1, borderColor: 'gainsboro' }}>
+      <View style={{ flex: 1, borderWidth: 1, borderColor: 'gainsboro' }}>
         <View style={{ padding: 10, borderBottomWidth: 1, borderBottomColor: 'gainsboro' }}>
-          <Text style={t}>CRYPTO TREES</Text>
+          <Text style={t}>USER HOME</Text>
+        </View>
+        <View style={{ padding: 10, borderBottomWidth: 1, borderBottomColor: 'gainsboro' }}>
+          <Text style={t}>OWNED TREES</Text>
+          <Text style={{ textAlign: 'center' }}>ERC721 COMPATIBLE</Text>
+        </View>
+        <View style={{ flex: 1, borderBottomWidth: 1, borderBottomColor: 'gainsboro' }}>
+          {this.renderList()}
         </View>
         {this.renderSimpleVars()}
         {page}
-        {this.renderFooter()}
       </View>
     );
   }
 
 }
 
-export default observer(Wallet);
+export default observer(UserHome);
 
