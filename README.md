@@ -20,5 +20,5 @@ Require git, npm/yarn, truffle and crypto wallet, preferably, Nifty with R-BTC f
 5.  truffle migrate --network testnet --reset
 6.  cd client
 7.  yarn install/ npm install
-8.  App would be running on the local machine on port 8545. Browser launches automatically or browse to the location.
+8.  npm run start - App would be running on the local machine on port 8545. Browser launches automatically or browse to the location.
 9.  Connect to your wallet and try out.
