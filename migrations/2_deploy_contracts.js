@@ -2,7 +2,8 @@ const TheNFT = artifacts.require("TheNFT");
 const TheToken = artifacts.require("TheToken");
 const GreenContract = artifacts.require("GreenContract")
 
-module.exports = async function (deployer) {
+module.exports = async function (deployer, network, accounts) {
+  console.log(accounts);
   await deployer.deploy(TheNFT);
   const nft = await TheNFT.deployed();
   console.log('nft.address: ' + nft.address);
@@ -16,5 +17,5 @@ module.exports = async function (deployer) {
   // console.log('greencontract.address: ' + greencontract.address);
 
   await token.setMinter(nft.address, true);
-  await nft.connectToToken(token.address);
+  await nft.setup(token.address, accounts[0]);
 };

@@ -13,9 +13,15 @@ contract TheNFT is Ownable, ERC721Full {
   enum StateType {
       ForSale,
       PendingValidation,
-      InstallmentPaid,
+      ContractRunning,
       ContractCancelled,    
       ContractEnded
+  }
+
+  enum ProofStateType {
+      Pending, 
+      Valid, 
+      Invalid
   }
 
   event ContractCreated(string applicationName, string workflowName, address originatingAddress);
@@ -31,6 +37,8 @@ contract TheNFT is Ownable, ERC721Full {
     uint256 listPrice;        // price listing
     uint8 installments;       // number of installments to pay the list price
     StateType State;          // green contract state
+    uint256 price;               // 80%(listPrice*installments) + 20%(mintCoin)
+    uint256 lastProofUploadTime; // last upload photo
   }
 
   GreenContract[] public greenContractList;
@@ -39,7 +47,7 @@ contract TheNFT is Ownable, ERC721Full {
     uint256 greenContractId;
     uint256 uploadTime; // when the photo saved to blockchain
     string newData;     // ipfs hash to the photo
-    bool validated;
+    ProofStateType State;
   }
 
   // track contract ID to proofs
@@ -48,28 +56,27 @@ contract TheNFT is Ownable, ERC721Full {
   address payable validator;
 
   constructor() ERC721Full("Crypto Forests", "TREE") public {
-    validator = msg.sender;
   }
 
-  function connectToToken(address payable addr) public onlyOwner {
-    tokenAddress = addr;
+  function setup(address payable addr1, address payable addr2) public onlyOwner {
+    tokenAddress = addr1;
+    validator = addr2;
   }
 
-  function setValidator(address payable addr) public onlyOwner {
-    validator = addr;
-  }
-
-  function setTree(string memory inputdata, uint256 price, uint8 inputInstallments) public {
+  function setTree(string memory inputdata, uint256 listPrice, uint8 inputInstallments) public {
     // everyone can be a vendor to list a tree
     uint256 newId = greenContractList.length;
+    uint256 price = listPrice.mul(inputInstallments).mul(100).div(80);
     greenContractList.push(
       GreenContract(
         newId,
         msg.sender,
         inputdata,
-        price,
+        listPrice,
         inputInstallments,
-        StateType.ForSale
+        StateType.ForSale,
+        price,
+        now
       )
     );
 
@@ -86,12 +93,14 @@ contract TheNFT is Ownable, ERC721Full {
     string memory, // data
     uint256,       // listPrice
     uint8,         // installments
-    StateType      // State
+    StateType,     // State
+    uint256,       // price
+    uint256        // lastProofUploadTime
   ) {
     require(greenContractIndex >= 0 && greenContractIndex < greenContractList.length, "!index");
     GreenContract memory g = greenContractList[greenContractIndex];
     return (
-      g.id, g.vendor, g.data, g.listPrice, g.installments, g.State
+      g.id, g.vendor, g.data, g.listPrice, g.installments, g.State, g.price, g.lastProofUploadTime
     );
   }
 
@@ -99,35 +108,41 @@ contract TheNFT is Ownable, ERC721Full {
     require(greenContractIndex >= 0 && greenContractIndex < greenContractList.length, "!index");
     // anyone can buy tree
     GreenContract memory g = greenContractList[greenContractIndex];
+    uint256 price = g.price;
+    uint256 amountSent = msg.value;
+    require(amountSent >= price, "Not enough payment");
 
     uint256 listPrice = g.listPrice;
     uint8 installments = g.installments;
-    uint256 totalPayment = listPrice.mul(installments); // list  price X number of installments
-    require(msg.value >= totalPayment, "Not enough payment");
 
-    // on listprice 70% will be sent to vendor, 10% to validator & 20% will be used to mint reward coin
-    // mint coin do up front
-    uint256 toCoin = totalPayment.mul(20).div(100);
+    // on price 80% will be used for installments & 20% will be used to mint reward coin
+    // mint coin do up
+    uint256 toInstallments = listPrice.mul(installments);
+    uint256 toMint = amountSent.sub(toInstallments);
 
-    ITheToken(tokenAddress).mint.value(toCoin)(msg.sender); // buyer receives coin
-    _mint(msg.sender, g.id);                                // buyer receives nft attached to greencontract id
+    ITheToken(tokenAddress).mint.value(toMint)(msg.sender); // buyer receives coin
+    _mint(msg.sender, g.id); // buyer receives nft attached to greencontract id
 
     // on bought, set state to not for sale and not on pending validation
-    greenContractList[greenContractIndex].State = StateType.InstallmentPaid;
+    greenContractList[greenContractIndex].State = StateType.ContractRunning;
 
-    // send vendor money later after proof validation
-    // send validator money later after proof validation
+    // send vendor & validator money later after proof validation
   }
 
   function submitProofOfWork(uint256 greenContractIndex, string memory proofdata) public {
     require(greenContractIndex >= 0 && greenContractIndex < greenContractList.length, "!index");
     GreenContract memory g = greenContractList[greenContractIndex];
-    //require(g.vendor == msg.sender, "only vendor can submit proof of work");
-    //require(g.State == StateType.InstallmentPaid, "Proof of work can be submitted only after initial payment");
-    //require(g.State != StateType.ContractEnded, "All instalments are paid");
-    //require(g.State != StateType.ContractCancelled, "Contract is cancelled");
-    g.State = StateType.PendingValidation;
-    greenContractProofs[g.id].push(ProofOfPhoto(g.id, now, proofdata, false));
+    require(g.vendor == msg.sender, "only vendor can submit proof of work");
+    require(g.State == StateType.ContractRunning, "Proof of work can be submitted only after initial payment");
+
+    // must be after one month from latest submit
+    // uint256 delta = now.sub(g.lastProofUploadTime);
+    // uint256 diff = 30 days;
+    // require(delta >= diff,"there should be 30 days difference between proof upload time");
+
+    greenContractList[greenContractIndex].State = StateType.PendingValidation;
+    greenContractList[greenContractIndex].lastProofUploadTime = now;
+    greenContractProofs[g.id].push(ProofOfPhoto(g.id, now, proofdata, ProofStateType.Pending));
   }
 
   function getProofOfWorkCount(uint256 greenContractIndex) public view returns (uint256) {
@@ -140,7 +155,7 @@ contract TheNFT is Ownable, ERC721Full {
     uint256,       // greenContractId
     uint256,       // uploadTime
     string memory, // newData
-    bool           // validated
+    ProofStateType // State
   ) {
     require(greenContractIndex >= 0 && greenContractIndex < greenContractList.length, "!index");
     GreenContract memory g = greenContractList[greenContractIndex];
@@ -151,26 +166,26 @@ contract TheNFT is Ownable, ERC721Full {
       p.greenContractId,
       p.uploadTime,
       p.newData,
-      p.validated
+      p.State
     );
   }
 
-  function validateProofOfWork(uint256 greenContractIndex, uint256 proofIndex) public payable {
+  function validateProofOfWork(uint256 greenContractIndex, uint256 proofIndex) public {
     require(greenContractIndex >= 0 && greenContractIndex < greenContractList.length, "!index");
     GreenContract memory g = greenContractList[greenContractIndex];
 
     // requirement below cant be commented, because vendor may try to cheat by call this function
     // require(msg.sender == validator, "Only validator allowed to validate");
 
+    require(g.State == StateType.PendingValidation,"must be on pending validation");
     require(proofIndex >= 0 && proofIndex < greenContractProofs[g.id].length, "!proofIndex");
-    greenContractProofs[g.id][proofIndex].validated = true;
+    require(greenContractProofs[g.id][proofIndex].State == ProofStateType.Pending,"!ProofStateType.Pending");
+    greenContractProofs[g.id][proofIndex].State = ProofStateType.Valid;
 
-    // if photo validated, vendor will receive 70% money, validator 10%
-    // remember 20% already sent up front to mint coin
+    // if photo validated, vendor will receive 90% money, validator 10%
     uint256 listPrice = g.listPrice;
-    uint256 toVendor = listPrice.mul(70).div(100);
-    uint256 toValidator = listPrice.mul(10).div(100);
-    // no need to set amount to mint coin because already sent, up front on buy tree
+    uint256 toVendor = listPrice.mul(90).div(100);
+    uint256 toValidator = listPrice.sub(toVendor);
  
     // send vendor money
     address payable vendor = g.vendor;
@@ -179,37 +194,37 @@ contract TheNFT is Ownable, ERC721Full {
     // send validator money
     validator.transfer(toValidator);
 
-    g.State = StateType.InstallmentPaid;
-    g.installments = g.installments - 1;
-    if (g.installments == 0) {
-      g.State = StateType.ContractEnded;
+    uint8 newInstallments = g.installments - 1;
+    greenContractList[greenContractIndex].installments = newInstallments;
+
+    if (newInstallments == 0) {
+      greenContractList[greenContractIndex].State = StateType.ContractEnded;
+    } else {
+      greenContractList[greenContractIndex].State = StateType.ContractRunning;
     }
     emit ContractUpdated(appName, workflowName, "validateProofOfWork", msg.sender);
   }
 
-  function invalidateProofOfWork(uint256 greenContractIndex, uint256 proofIndex) public payable {
+  function invalidateProofOfWork(uint256 greenContractIndex, uint256 proofIndex) public {
     require(greenContractIndex >= 0 && greenContractIndex < greenContractList.length, "!index");
     GreenContract memory g = greenContractList[greenContractIndex];
 
     // requirement below cant be commented, because vendor may try to cheat by call this function
     // require(msg.sender == validator, "Only validator allowed to validate");
 
+    require(g.State == StateType.PendingValidation,"must be on pending validation");
     require(proofIndex >= 0 && proofIndex < greenContractProofs[g.id].length, "!proofIndex");
-    ProofOfPhoto memory p = greenContractProofs[g.id][proofIndex];
-    p.validated = false;
+    require(greenContractProofs[g.id][proofIndex].State == ProofStateType.Pending,"!ProofStateType.Pending");
+    greenContractProofs[g.id][proofIndex].State = ProofStateType.Invalid;
 
-    // on cancel installment, validator will receive current fee and remaining money sent to TheToken contract
+    // on cancel installment, remaining money will be donate
     uint256 listPrice = g.listPrice;
-    uint256 toValidator = listPrice.mul(10).div(100);
+    uint8 installments = g.installments;
+    uint256 toDonate = listPrice.mul(installments);
+    ITheToken(tokenAddress).donate.value(toDonate)();
 
-    uint256 remainingMoney = listPrice.mul(g.installments);
-    remainingMoney = remainingMoney.mul(80).div(100); // remember 20% already used to mint coin
-    remainingMoney = remainingMoney.sub(toValidator);
-    validator.transfer(toValidator);
-    tokenAddress.transfer(remainingMoney);
-
-    g.State = StateType.ContractCancelled;
-    g.installments = 0;
+    greenContractList[greenContractIndex].State = StateType.ContractCancelled;
+    greenContractList[greenContractIndex].installments = 0;
     emit ContractUpdated(appName, workflowName, "inValidateProofOfWork", msg.sender);
   }
 }
