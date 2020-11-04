@@ -960,7 +960,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3854,
+                        "referencedDeclaration": 3946,
                         "src": "803:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -1059,7 +1059,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3854,
+                        "referencedDeclaration": 3946,
                         "src": "949:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -1129,10 +1129,10 @@
                             "name": "revert",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              3859,
-                              3860
+                              3951,
+                              3952
                             ],
-                            "referencedDeclaration": 3860,
+                            "referencedDeclaration": 3952,
                             "src": "975:6:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_revert_pure$_t_string_memory_ptr_$returns$__$",
@@ -1265,10 +1265,10 @@
                             "name": "revert",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              3859,
-                              3860
+                              3951,
+                              3952
                             ],
-                            "referencedDeclaration": 3860,
+                            "referencedDeclaration": 3952,
                             "src": "1099:6:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_revert_pure$_t_string_memory_ptr_$returns$__$",
@@ -1534,7 +1534,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 3854,
+                          "referencedDeclaration": 3946,
                           "src": "1402:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2163,10 +2163,10 @@
                             "name": "revert",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              3859,
-                              3860
+                              3951,
+                              3952
                             ],
-                            "referencedDeclaration": 3860,
+                            "referencedDeclaration": 3952,
                             "src": "1898:6:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_revert_pure$_t_string_memory_ptr_$returns$__$",
@@ -2299,10 +2299,10 @@
                             "name": "revert",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              3859,
-                              3860
+                              3951,
+                              3952
                             ],
-                            "referencedDeclaration": 3860,
+                            "referencedDeclaration": 3952,
                             "src": "2023:6:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_revert_pure$_t_string_memory_ptr_$returns$__$",
@@ -2365,7 +2365,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3854,
+                        "referencedDeclaration": 3946,
                         "src": "2123:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -2435,10 +2435,10 @@
                             "name": "revert",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              3859,
-                              3860
+                              3951,
+                              3952
                             ],
-                            "referencedDeclaration": 3860,
+                            "referencedDeclaration": 3952,
                             "src": "2149:6:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_revert_pure$_t_string_memory_ptr_$returns$__$",
@@ -2497,7 +2497,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3854,
+                        "referencedDeclaration": 3946,
                         "src": "2235:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -2692,7 +2692,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 3854,
+                          "referencedDeclaration": 3946,
                           "src": "2392:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -2858,7 +2858,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3854,
+                        "referencedDeclaration": 3946,
                         "src": "2499:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -2928,10 +2928,10 @@
                             "name": "revert",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              3859,
-                              3860
+                              3951,
+                              3952
                             ],
-                            "referencedDeclaration": 3860,
+                            "referencedDeclaration": 3952,
                             "src": "2525:6:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_revert_pure$_t_string_memory_ptr_$returns$__$",
@@ -3064,10 +3064,10 @@
                             "name": "revert",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              3859,
-                              3860
+                              3951,
+                              3952
                             ],
-                            "referencedDeclaration": 3860,
+                            "referencedDeclaration": 3952,
                             "src": "2645:6:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_revert_pure$_t_string_memory_ptr_$returns$__$",
@@ -3259,7 +3259,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 3854,
+                          "referencedDeclaration": 3946,
                           "src": "2880:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -3424,7 +3424,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3854,
+                        "referencedDeclaration": 3946,
                         "src": "2965:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -3494,10 +3494,10 @@
                             "name": "revert",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              3859,
-                              3860
+                              3951,
+                              3952
                             ],
-                            "referencedDeclaration": 3860,
+                            "referencedDeclaration": 3952,
                             "src": "2991:6:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_revert_pure$_t_string_memory_ptr_$returns$__$",
@@ -3626,10 +3626,10 @@
                             "name": "revert",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              3859,
-                              3860
+                              3951,
+                              3952
                             ],
-                            "referencedDeclaration": 3860,
+                            "referencedDeclaration": 3952,
                             "src": "3194:6:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_revert_pure$_t_string_memory_ptr_$returns$__$",
@@ -3820,7 +3820,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 3854,
+                          "referencedDeclaration": 3946,
                           "src": "3372:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -4377,7 +4377,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3854,
+                        "referencedDeclaration": 3946,
                         "src": "3857:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -4447,10 +4447,10 @@
                             "name": "revert",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              3859,
-                              3860
+                              3951,
+                              3952
                             ],
-                            "referencedDeclaration": 3860,
+                            "referencedDeclaration": 3952,
                             "src": "3883:6:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_revert_pure$_t_string_memory_ptr_$returns$__$",
@@ -4579,10 +4579,10 @@
                             "name": "revert",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              3859,
-                              3860
+                              3951,
+                              3952
                             ],
-                            "referencedDeclaration": 3860,
+                            "referencedDeclaration": 3952,
                             "src": "4096:6:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_revert_pure$_t_string_memory_ptr_$returns$__$",
@@ -4738,7 +4738,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 3854,
+                          "referencedDeclaration": 3946,
                           "src": "4254:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -5478,7 +5478,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3854,
+                        "referencedDeclaration": 3946,
                         "src": "803:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -5577,7 +5577,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3854,
+                        "referencedDeclaration": 3946,
                         "src": "949:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -5647,10 +5647,10 @@
                             "name": "revert",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              3859,
-                              3860
+                              3951,
+                              3952
                             ],
-                            "referencedDeclaration": 3860,
+                            "referencedDeclaration": 3952,
                             "src": "975:6:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_revert_pure$_t_string_memory_ptr_$returns$__$",
@@ -5783,10 +5783,10 @@
                             "name": "revert",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              3859,
-                              3860
+                              3951,
+                              3952
                             ],
-                            "referencedDeclaration": 3860,
+                            "referencedDeclaration": 3952,
                             "src": "1099:6:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_revert_pure$_t_string_memory_ptr_$returns$__$",
@@ -6052,7 +6052,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 3854,
+                          "referencedDeclaration": 3946,
                           "src": "1402:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -6681,10 +6681,10 @@
                             "name": "revert",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              3859,
-                              3860
+                              3951,
+                              3952
                             ],
-                            "referencedDeclaration": 3860,
+                            "referencedDeclaration": 3952,
                             "src": "1898:6:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_revert_pure$_t_string_memory_ptr_$returns$__$",
@@ -6817,10 +6817,10 @@
                             "name": "revert",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              3859,
-                              3860
+                              3951,
+                              3952
                             ],
-                            "referencedDeclaration": 3860,
+                            "referencedDeclaration": 3952,
                             "src": "2023:6:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_revert_pure$_t_string_memory_ptr_$returns$__$",
@@ -6883,7 +6883,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3854,
+                        "referencedDeclaration": 3946,
                         "src": "2123:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -6953,10 +6953,10 @@
                             "name": "revert",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              3859,
-                              3860
+                              3951,
+                              3952
                             ],
-                            "referencedDeclaration": 3860,
+                            "referencedDeclaration": 3952,
                             "src": "2149:6:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_revert_pure$_t_string_memory_ptr_$returns$__$",
@@ -7015,7 +7015,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3854,
+                        "referencedDeclaration": 3946,
                         "src": "2235:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -7210,7 +7210,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 3854,
+                          "referencedDeclaration": 3946,
                           "src": "2392:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -7376,7 +7376,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3854,
+                        "referencedDeclaration": 3946,
                         "src": "2499:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -7446,10 +7446,10 @@
                             "name": "revert",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              3859,
-                              3860
+                              3951,
+                              3952
                             ],
-                            "referencedDeclaration": 3860,
+                            "referencedDeclaration": 3952,
                             "src": "2525:6:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_revert_pure$_t_string_memory_ptr_$returns$__$",
@@ -7582,10 +7582,10 @@
                             "name": "revert",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              3859,
-                              3860
+                              3951,
+                              3952
                             ],
-                            "referencedDeclaration": 3860,
+                            "referencedDeclaration": 3952,
                             "src": "2645:6:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_revert_pure$_t_string_memory_ptr_$returns$__$",
@@ -7777,7 +7777,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 3854,
+                          "referencedDeclaration": 3946,
                           "src": "2880:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -7942,7 +7942,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3854,
+                        "referencedDeclaration": 3946,
                         "src": "2965:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -8012,10 +8012,10 @@
                             "name": "revert",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              3859,
-                              3860
+                              3951,
+                              3952
                             ],
-                            "referencedDeclaration": 3860,
+                            "referencedDeclaration": 3952,
                             "src": "2991:6:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_revert_pure$_t_string_memory_ptr_$returns$__$",
@@ -8144,10 +8144,10 @@
                             "name": "revert",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              3859,
-                              3860
+                              3951,
+                              3952
                             ],
-                            "referencedDeclaration": 3860,
+                            "referencedDeclaration": 3952,
                             "src": "3194:6:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_revert_pure$_t_string_memory_ptr_$returns$__$",
@@ -8338,7 +8338,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 3854,
+                          "referencedDeclaration": 3946,
                           "src": "3372:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -8895,7 +8895,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3854,
+                        "referencedDeclaration": 3946,
                         "src": "3857:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -8965,10 +8965,10 @@
                             "name": "revert",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              3859,
-                              3860
+                              3951,
+                              3952
                             ],
-                            "referencedDeclaration": 3860,
+                            "referencedDeclaration": 3952,
                             "src": "3883:6:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_revert_pure$_t_string_memory_ptr_$returns$__$",
@@ -9097,10 +9097,10 @@
                             "name": "revert",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
-                              3859,
-                              3860
+                              3951,
+                              3952
                             ],
-                            "referencedDeclaration": 3860,
+                            "referencedDeclaration": 3952,
                             "src": "4096:6:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_revert_pure$_t_string_memory_ptr_$returns$__$",
@@ -9256,7 +9256,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 3854,
+                          "referencedDeclaration": 3946,
                           "src": "4254:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -9364,73 +9364,9 @@
     "name": "solc",
     "version": "0.5.16+commit.9c3226ce.Emscripten.clang"
   },
-  "networks": {
-    "4": {
-      "events": {
-        "0xc4e35ee48689d4f7c3d8ea58efd54155f1ea84ffee48edb29b2cdf3c95320ea8": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "string",
-              "name": "applicationName",
-              "type": "string"
-            },
-            {
-              "indexed": false,
-              "internalType": "string",
-              "name": "workflowName",
-              "type": "string"
-            },
-            {
-              "indexed": false,
-              "internalType": "address",
-              "name": "originatingAddress",
-              "type": "address"
-            }
-          ],
-          "name": "ContractCreated",
-          "type": "event"
-        },
-        "0xbc3f77ce3a281e615c85054a5814e59703e2ee0cf33782f46911e0888d4c394c": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "string",
-              "name": "applicationName",
-              "type": "string"
-            },
-            {
-              "indexed": false,
-              "internalType": "string",
-              "name": "workflowName",
-              "type": "string"
-            },
-            {
-              "indexed": false,
-              "internalType": "string",
-              "name": "action",
-              "type": "string"
-            },
-            {
-              "indexed": false,
-              "internalType": "address",
-              "name": "originatingAddress",
-              "type": "address"
-            }
-          ],
-          "name": "ContractUpdated",
-          "type": "event"
-        }
-      },
-      "links": {},
-      "address": "0x6D767B54696B615A7D60f4dF570e8d3bc5dE2d97",
-      "transactionHash": "0xff5594db1fc1183cb141a783560ab175f4a10228f59eb1e516ef57c3cbb3d759"
-    }
-  },
+  "networks": {},
   "schemaVersion": "3.3.0",
-  "updatedAt": "2020-11-02T01:04:08.811Z",
+  "updatedAt": "2020-11-04T02:54:10.148Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

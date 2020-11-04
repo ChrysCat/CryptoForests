@@ -1,19 +1,20 @@
 import React from 'react';
-import { View, Dimensions, ScrollView, Text } from 'react-native';
+import { View, Dimensions } from 'react-native';
 import {
-  BrowserRouter as Router,
+  MemoryRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 import Connection from './Connection';
-import Wallet from './Wallet';
 import Home from './Home';
 import UserHome from './UserHome';
 import UserForSale from './UserForSale';
+import UserTreeDetail from './UserTreeDetail';
 import VendorTreeList from './VendorTreeList';
 import VendorTreeCreate from './VendorTreeCreate';
-import VendorTreeDetail from './VendorTreeDetail';
+import VendorSubmitProof from './VendorSubmitProof';
+import ValidatorTreeList from './ValidatorTreeList';
+import ValidatorCheckProof from './ValidatorCheckProof';
 
 class App extends React.Component {
   constructor(props) {
@@ -71,9 +72,12 @@ class App extends React.Component {
                 <Switch>
                   <Route path="/user-home" component={UserHome} />
                   <Route path="/user-for-sale" component={UserForSale} />
+                  <Route path="/user-tree-detail/:id" component={UserTreeDetail} />
                   <Route path="/vendor-home" component={VendorTreeList} />
                   <Route path="/vendor-tree-create" component={VendorTreeCreate} />
-                  <Route path="/vendor-tree-detail" component={VendorTreeDetail} />
+                  <Route path="/vendor-submit-proof/:id" component={VendorSubmitProof} />
+                  <Route path="/validator-home" component={ValidatorTreeList} />
+                  <Route path="/validator-check-proof/:id" component={ValidatorCheckProof} />
                   <Route path="/" component={Home} />
                 </Switch>
               </Router>

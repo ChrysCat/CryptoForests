@@ -9,6 +9,8 @@ const clipboardy = require('clipboardy');
 const t = { textAlign: 'center', fontWeight: 'bold' };
 const s = { textAlign: 'center' };
 const c = { padding: 10, justifyContent: 'center' };
+const ethers = require('ethers');
+const utils = ethers.utils;
 
 class UserHome extends React.Component {
   constructor(props) {
@@ -202,7 +204,7 @@ class UserHome extends React.Component {
 
     let from = '0.0';
     if (this.state.toSwap && this.state.toSwap.length > 0 && Number(this.state.toSwap) > 0) {
-      from = manager.formatAmount(this.state.toSwap);
+      from = utils.formatEther(utils.parseEther(this.state.toSwap));
     }
     const to = from;
 
@@ -267,7 +269,7 @@ class UserHome extends React.Component {
     const states = [
       'For Sale',
       'Pending Validation',
-      'Installment Paid',
+      'Contract Running',
       'Contract Cancelled',
       'Contract Ended'
     ];
@@ -289,7 +291,7 @@ class UserHome extends React.Component {
           <Text style={{ textAlign: 'left' }}>GPS: {gps}</Text>
           <Text style={{ textAlign: 'left' }}>Species: {species}</Text>
         </View>
-        <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center' }} onPress={() => this.exploreNft()}>
+        <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center' }} onPress={() => this.props.history.push('/user-tree-detail/' + id)}>
           <Icon name="search" size={30} color={'gray'} />
         </TouchableOpacity>
       </View>

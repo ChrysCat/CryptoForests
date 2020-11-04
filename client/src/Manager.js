@@ -153,28 +153,6 @@ class TheManager {
 
   }
 
-  async buyNftRequirement() {
-    if (!this.address) return 1;
-    const balanceGas = await this.signer.getBalance();
-    const mintTokenCost = await this.scNft.mintTokenCost();
-    if (balanceGas.lte(mintTokenCost)) return 2;
-    return 0;
-  }
-
-  async buyNft() {
-    const amount = utils.parseEther(this.nftMintCost);
-    const infoIpfsHash = "HASH" + moment().unix();
-    const tx = await this.scNft.createTree(infoIpfsHash, { value: amount });
-    console.log({ tx });
-    try {
-      await tx.wait();
-    } catch (err) {
-      console.error(err);
-    }
-    console.log({ tx });
-    return tx.hash;
-  }
-
   async swapRequirement(amount) {
     if (!this.address) return 1;
     const balanceCoin = await this.scCoin.balanceOf(this.address);
@@ -207,10 +185,6 @@ class TheManager {
   openNft() {
     const url = URL_EXPLORER_NFT + THENFT_ADDRESS;
     Lib.openUrl(url);
-  }
-
-  formatAmount(amount) {
-    return utils.formatEther(utils.parseEther(amount));
   }
 
   async nftSetTree(data, listPrice, installments) {
@@ -264,9 +238,7 @@ class TheManager {
     const balanceGas = await this.signer.getBalance();
 
     const item = await this.scNft.getTreeData(id);
-    const listPrice = item[3];
-    const installments = item[4];
-    const price = listPrice.mul(installments);
+    const price = item[6];
 
     if (balanceGas.lte(price)) return 2;
     return 0;
@@ -274,11 +246,9 @@ class TheManager {
 
   async nftBuyTree(id) {
     const item = await this.scNft.getTreeData(id);
-    const listPrice = item[3];
-    const installments = item[4];
-    const price = listPrice.mul(installments);
-
-    const tx = await this.scNft.buyTree(id, { value: price.toString() });
+    const price = item[6].toString();
+    console.log({ id, price });
+    const tx = await this.scNft.buyTree(id, { value: price });
     try {
       await tx.wait();
     } catch (err) {
@@ -287,7 +257,56 @@ class TheManager {
     return tx.hash;
   }
 
+  async nftGetTreeData(id) {
+    const item = await this.scNft.getTreeData(id);
+    return item;
+  }
 
+  async nftSubmitProofOfWork(id, hash) {
+    const tx = await this.scNft.submitProofOfWork(id, hash);
+    try {
+      await tx.wait();
+    } catch (err) {
+      console.error(err);
+    }
+    return tx.hash;
+  }
+
+  async nftGetProofOfWorks(id) {
+    const num = await this.scNft.getProofOfWorkCount(id);
+    const ret = [];
+    for (let i = 0; i < num.toNumber(); i++) {
+      const data = await this.scNft.getProofOfWorkData(id, i);
+
+      const ts = data[1].toNumber();
+      const uploadTime = moment.unix(ts).format('DD-MM-YYYY HH:mm:ss');
+      const hash = data[2];
+      const statusList = ['Pending', 'Valid', 'Invalid'];
+      const state = statusList[data[3]]
+      ret.push({ ts, uploadTime, hash, state });
+    }
+    return ret;
+  }
+
+  async nftValidateProofOfWork(id, proofId) {
+    const tx = await this.scNft.validateProofOfWork(id, proofId);
+    try {
+      await tx.wait();
+    } catch (err) {
+      console.error(err);
+    }
+    return tx.hash;
+  }
+
+  async nftInvalidateProofOfWork(id, proofId) {
+    const tx = await this.scNft.invalidateProofOfWork(id, proofId);
+    try {
+      await tx.wait();
+    } catch (err) {
+      console.error(err);
+    }
+    return tx.hash;
+  }
 }
 
 decorate(TheManager, {

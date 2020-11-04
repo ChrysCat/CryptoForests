@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Lib from './Lib';
 import manager from './Manager';
 
-class VendorTreeList extends React.Component {
+class ValidatorTreeList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -50,15 +50,15 @@ class VendorTreeList extends React.Component {
           <Text style={{ textAlign: 'left' }}>Species: {species}</Text>
           <Text style={{ textAlign: 'left' }}>State: {state}</Text>
         </View>
-        <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center' }} onPress={() => this.props.history.push('/vendor-submit-proof/' + id)}>
-          <Icon name="camera" size={30} color={'gray'} />
+        <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center' }} onPress={() => this.props.history.push('/validator-check-proof/' + id)}>
+          <Icon name="user-secret" size={30} color={'gray'} />
         </TouchableOpacity>
       </View>
     );
   }
 
   renderList() {
-    const rows = manager.vendorTrees;
+    const rows = manager.validatorTrees;
 
     return (
       <View style={{ flex: 1 }}>
@@ -81,12 +81,10 @@ class VendorTreeList extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         <View style={{ padding: 10, borderBottomWidth: 1, borderBottomColor: 'gainsboro' }}>
-          <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>VENDOR TREE LIST</Text>
+          <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>VALIDATOR TREE LIST</Text>
         </View>
         {this.renderList()}
         <View style={{ padding: 10, borderTopWidth: 1, borderTopColor: 'gainsboro' }}>
-          <Button disabled={disabled} title='CREATE NEW TREE' onPress={() => this.props.history.push('/vendor-tree-create')} />
-          <View style={{ height: 10 }} />
           <Button disabled={disabled} title='BACK' onPress={() => this.props.history.goBack()} />
         </View>
       </View>
@@ -95,4 +93,4 @@ class VendorTreeList extends React.Component {
 
 }
 
-export default observer(VendorTreeList);
+export default observer(ValidatorTreeList);

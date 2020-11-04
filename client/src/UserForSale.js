@@ -57,15 +57,15 @@ class UserForSale extends React.Component {
     const states = [
       'For Sale',
       'Pending Validation',
-      'Installment Paid',
+      'Contract Running',
       'Contract Cancelled',
       'Contract Ended'
     ];
 
-    const listPrice = item[3].toString();
+    const listPrice = utils.formatEther(item[3].toString());
     const installments = item[4];
     const state = states[item[5]];
-    const price = utils.formatEther(item[3].mul(installments).toString());
+    const price = utils.formatEther(item[6].toString());
 
     return (
       <View key={id} style={{ padding: 10, flexDirection: 'row' }}>
@@ -79,7 +79,7 @@ class UserForSale extends React.Component {
           <Text style={{ textAlign: 'left', fontWeight: 'bold' }}>TREE #{id}</Text>
           <Text style={{ textAlign: 'left' }}>GPS: {gps}</Text>
           <Text style={{ textAlign: 'left' }}>Species: {species}</Text>
-          <Text style={{ textAlign: 'left' }}>Installments: {installments} months</Text>
+          <Text style={{ textAlign: 'left' }}>Installments: {listPrice} {gasSymbol} x {installments} months</Text>
           <Text style={{ textAlign: 'left' }}>Price: {price} {gasSymbol}</Text>
         </View>
         <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center', padding: 10 }}
@@ -120,10 +120,17 @@ class UserForSale extends React.Component {
     const coinSymbol = manager.coinSymbol;
 
     const item = this.state.item;
+
     const id = item[0].toString();
     const installments = item[4];
-    const price = utils.formatEther(item[3].mul(installments).toString());
-    const reward = utils.formatEther(item[3].mul(installments).div(10).toString());
+    const listPrice = item[3];
+    const ip = listPrice.mul(installments);
+    let price = item[6];
+    const toMintCoin = price.sub(ip);
+    let reward = toMintCoin.div(2);
+
+    reward = utils.formatEther(reward.toString());
+    price = utils.formatEther(price.toString());
 
     return (
       <View style={{ flex: 1 }}>
@@ -147,12 +154,34 @@ class UserForSale extends React.Component {
     );
   }
 
+  renderSuccess() {
+    const disabled = manager.busy;
+    const { txHash } = this.state;
+    return (
+      <View style={{ flex: 1, padding: 10 }}>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <Text style={{ textAlign: 'center' }}>TRANSACTION HASH</Text>
+          <Text style={{ textAlign: 'center', fontSize: 10 }}>{txHash}</Text>
+        </View>
+        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+          <View style={{ flex: 1 }}>
+            <Button disabled={disabled} title='EXPLORE TX' onPress={() => manager.openTx(this.state.txHash)} />
+          </View>
+          <View style={{ width: 10, height: 10 }} />
+          <View style={{ flex: 1 }}>
+            <Button disabled={disabled} title='BACK' onPress={() => this.props.history.goBack()} />
+          </View>
+        </View>
+      </View>
+    );
+  }
+
   render() {
     const disabled = manager.busy;
 
     let content;
     if (this.state.show === 'confirm') content = this.renderConfirm();
-    else if (this.state.show === 'success') content = this.renderConfirm();
+    else if (this.state.show === 'success') content = this.renderSuccess();
     else content = this.renderList();
     return (
       <View style={{ flex: 1 }}>
