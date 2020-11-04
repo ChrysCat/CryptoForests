@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, Image } from 'react-native';
 
 const IpfsHttpClient = require('ipfs-http-client');
+const EXIF = require('exif-js');
+var gps;
 
 class UploadIPFS extends React.Component {
   constructor(props) {
@@ -40,19 +42,35 @@ class UploadIPFS extends React.Component {
     const files = e.target.files;
     const file = files[0];
     const ipfs = this.ipfs;
+   
     try {
       const added = await ipfs.add(
         file, {
         progress: (prog) => console.log(`received: ${prog}`)
       });
 
+      console.log(added);
+      
       const hash = added.cid.toString();
       const url = 'https://ipfs.infura.io/ipfs/' + hash;
+ 
+      var reader = new FileReader();
+      reader.onload = function(e) {
+  
+          var exifData = EXIF.readFromBinaryFile(this.result);
+          console.log(exifData);   
+          if (exifData) {
+            gps = exifData.GPSLatitude + exifData.GPSLatitudeRef 
+                + " " + exifData.GPSLongitude + exifData.GPSLongitudeRef;
+          } else {
+            gps = "Unknown";
+          }
 
-      console.log(added);
-      this.setState({ hash: hash, url: url });
+      }
+      reader.readAsArrayBuffer(file);
+      this.setState({ hash: hash, url: url , gps: gps});
+      this.props.onUpload({ hash, url, gps });
 
-      this.props.onUpload({ hash, url });
     } catch (err) {
       console.error(err);
     }
@@ -62,6 +80,7 @@ class UploadIPFS extends React.Component {
     const ipfsHash = this.state.hash;
     let img = <View style={{ width: 300, height: 200, backgroundColor: 'gray' }} />
     const url = this.state.url;
+    const gps = this.state.gps;
 
     if (url && url.length > 0) {
       img = <Image

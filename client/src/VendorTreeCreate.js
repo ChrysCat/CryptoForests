@@ -10,7 +10,7 @@ class VendorTreeCreate extends React.Component {
     super(props);
     this.state = {
       show: 'form',
-      gps: '1,2',
+      gps: ' ',
       species: 'Oak Tree',
       listPrice: '0.1',
       installments: '12'
@@ -82,7 +82,7 @@ class VendorTreeCreate extends React.Component {
               style={{ borderWidth: 1, borderColor: 'gainsboro', padding: 10 }}
               onChangeText={(txt) => this.setState({ gps: txt })}
               value={this.state.gps}
-              placeholder='ENTER GPS'
+              placeholder='GPS'
             />
             <Text> </Text>
             <Text>Species:</Text>
@@ -128,8 +128,8 @@ class VendorTreeCreate extends React.Component {
             </Picker>
             <Text> </Text>
             <Text>Initial Photo IPFS Hash:</Text>
-            <UploadIPFS onUpload={({ hash, url }) => {
-              this.setState({ initialPhotoIpfsHash: hash })
+            <UploadIPFS onUpload={({ hash, url , gps}) => {
+              this.setState({ initialPhotoIpfsHash: hash, gps: gps })
             }} />
           </ScrollView>
         </View>
