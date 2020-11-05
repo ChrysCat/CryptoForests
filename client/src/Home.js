@@ -27,11 +27,11 @@ class Home extends React.Component {
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <Icon name="leaf" size={80} />
           <View style={{ height: 10 }} />
-          <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>CRYPTO TREES</Text>
-          <Text style={{ textAlign: 'center' }}>BLOCKCHAIN FOR GREEN WORLD</Text>
+          <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>CRYPTO FORESTS</Text>
+          <Text style={{ textAlign: 'center' }}>Blockchain for Tree Conservation</Text>
         </View>
         <View style={{ padding: 10, borderTopWidth: 1, borderTopColor: 'gainsboro' }}>
-          <Button disabled={disabled} title='USER MENU' onPress={() => this.navigateTo('/user-home')} />
+          <Button disabled={disabled} title='BUYER MENU' onPress={() => this.navigateTo('/user-home')} />
           <View style={{ height: 10 }} />
           <Button disabled={disabled} title='VENDOR MENU' onPress={() => this.navigateTo('/vendor-home')} />
           <View style={{ height: 10 }} />
