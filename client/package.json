@@ -11,6 +11,7 @@
     "axios": "^0.20.0",
     "clipboardy": "^2.3.0",
     "ethers": "^5.0.19",
+    "exif-js": "^2.3.0",
     "ipfs-http-client": "^48.0.0",
     "mobx": "^5.15.6",
     "mobx-react": "^6.3.0",

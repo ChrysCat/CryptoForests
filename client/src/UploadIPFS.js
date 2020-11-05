@@ -21,17 +21,17 @@ class UploadIPFS extends React.Component {
       let reader = new FileReader();
 
       reader.onload = function () {
-        console.log(reader.result);
-        const buffer = new Buffer(reader.result);
-
-        const exifData = EXIF.readFromBinaryFile(this.result);
-        console.log(exifData);
+        const exifData = EXIF.readFromBinaryFile(reader.result);
+        console.log({ exifData });
         let gps;
-        if (exifData) {
+        if (exifData && exifData.GPSLatitude && exifData.GPSLongitude) {
           gps = exifData.GPSLatitude + exifData.GPSLatitudeRef + " " + exifData.GPSLongitude + exifData.GPSLongitudeRef;
         } else {
           gps = "Unknown";
         }
+
+        console.log(reader.result);
+        const buffer = new Buffer(reader.result);
 
         resolve({ buffer, gps });
       };

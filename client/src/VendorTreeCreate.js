@@ -77,14 +77,15 @@ class VendorTreeCreate extends React.Component {
       <View style={{ flex: 1 }}>
         <View style={{ flex: 1, padding: 10 }}>
           <ScrollView style={{}}>
-            <Text>GPS:</Text>
+            {/* <Text>GPS:</Text>
             <TextInput
+              disabled={true}
               style={{ borderWidth: 1, borderColor: 'gainsboro', padding: 10 }}
               onChangeText={(txt) => this.setState({ gps: txt })}
               value={this.state.gps}
               placeholder='GPS'
             />
-            <Text> </Text>
+            <Text> </Text> */}
             <Text>Species:</Text>
             <Picker
               style={{ borderWidth: 1, borderColor: 'gainsboro', padding: 10 }}
@@ -128,7 +129,7 @@ class VendorTreeCreate extends React.Component {
             </Picker>
             <Text> </Text>
             <Text>Initial Photo IPFS Hash:</Text>
-            <UploadIPFS onUpload={({ hash, url , gps}) => {
+            <UploadIPFS onUpload={({ hash, url, gps }) => {
               this.setState({ initialPhotoIpfsHash: hash, gps: gps })
             }} />
           </ScrollView>
