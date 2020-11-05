@@ -92,7 +92,6 @@ class UserHome extends React.Component {
 
   renderHome() {
     const disabled = manager.busy;
-    const btn1 = 'CREATE TREE';
     const btn2 = 'SWAP ' + manager.coinSymbol + ' TO ' + manager.gasSymbol;
     return (
       <View style={c}>
@@ -211,7 +210,7 @@ class UserHome extends React.Component {
     return (
       <View style={c}>
         <Text style={s}>SWAP {coinSymbol} TO {gasSymbol}</Text>
-        <Text style={s}>ENTER AMOUNT {coinSymbol}</Text>
+        <Text style={s}>ENTER {coinSymbol} AMOUNT</Text>
         <TextInput
           disabled={disabled}
           style={{ borderWidth: 1, borderColor: 'gainsboro', padding: 10 }}
@@ -292,7 +291,7 @@ class UserHome extends React.Component {
           <Text style={{ textAlign: 'left' }}>Species: {species}</Text>
         </View>
         <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center' }} onPress={() => this.props.history.push('/user-tree-detail/' + id)}>
-          <Icon name="search" size={30} color={'gray'} />
+          <Icon name="search" size={30} title="Photo proofs" color={'gray'} />
         </TouchableOpacity>
       </View>
     );
@@ -325,11 +324,11 @@ class UserHome extends React.Component {
     return (
       <View style={{ flex: 1, borderWidth: 1, borderColor: 'gainsboro' }}>
         <View style={{ padding: 10, borderBottomWidth: 1, borderBottomColor: 'gainsboro' }}>
-          <Text style={t}>USER HOME</Text>
+          <Text style={t}>BUYER HOME</Text>
         </View>
         <View style={{ padding: 10, borderBottomWidth: 1, borderBottomColor: 'gainsboro' }}>
-          <Text style={t}>OWNED TREES</Text>
-          <Text style={{ textAlign: 'center' }}>ERC721 COMPATIBLE</Text>
+          <Text style={t}>Trees You Own</Text>
+          <Text style={{ textAlign: 'center' }}>ERC721 Compatible</Text>
         </View>
         <View style={{ flex: 1, borderBottomWidth: 1, borderBottomColor: 'gainsboro' }}>
           {this.renderList()}

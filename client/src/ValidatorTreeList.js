@@ -51,7 +51,7 @@ class ValidatorTreeList extends React.Component {
           <Text style={{ textAlign: 'left' }}>State: {state}</Text>
         </View>
         <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center' }} onPress={() => this.props.history.push('/validator-check-proof/' + id)}>
-          <Icon name="user-secret" size={30} color={'gray'} />
+          <Icon name="user-secret" size={30} title="validate" color={'gray'} />
         </TouchableOpacity>
       </View>
     );

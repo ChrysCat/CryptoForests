@@ -20,12 +20,22 @@ class UploadIPFS extends React.Component {
     return new Promise((resolve, reject) => {
       let reader = new FileReader();
 
+      function convertDMSToDD(degrees, minutes, seconds, direction) {
+        var dd = degrees + minutes/60 + seconds/(60*60);
+        if (direction == "S" || direction == "W") {
+            dd = dd * -1;
+        } // Don't do anything for N or E
+        return dd;
+      }
+
       reader.onload = function () {
         const exifData = EXIF.readFromBinaryFile(reader.result);
         console.log({ exifData });
         let gps;
         if (exifData && exifData.GPSLatitude && exifData.GPSLongitude) {
-          gps = exifData.GPSLatitude + exifData.GPSLatitudeRef + " " + exifData.GPSLongitude + exifData.GPSLongitudeRef;
+          let lat = convertDMSToDD(exifData.GPSLatitude[0], exifData.GPSLatitude[1], exifData.GPSLatitude[2], exifData.GPSLatitudeRef);
+          let long = convertDMSToDD(exifData.GPSLongitude[0], exifData.GPSLongitude[1], exifData.GPSLongitude[2], exifData.GPSLongitudeRef);
+          gps = lat + "," + long;
         } else {
           gps = "Unknown";
         }
@@ -86,9 +96,9 @@ class UploadIPFS extends React.Component {
           <input type='file' name='input-file' id='input-file' onChange={args => this.captureFile(args)} />
         </div>
         <View style={{ height: 10 }} />
+        <Text>GPS: {gps}</Text>
         <Text>IPFS Hash: {ipfsHash}</Text>
         <Text>URL: {url}</Text>
-        <Text>GPS: {gps}</Text>
       </View>
     );
   }

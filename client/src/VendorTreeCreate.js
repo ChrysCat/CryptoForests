@@ -11,8 +11,8 @@ class VendorTreeCreate extends React.Component {
     this.state = {
       show: 'form',
       gps: ' ',
-      species: 'Oak Tree',
-      listPrice: '0.1',
+      species: 'Oak',
+      listPrice: '0.0001',
       installments: '12'
     };
   }
@@ -36,7 +36,7 @@ class VendorTreeCreate extends React.Component {
       this.setState({ show: 'success', txHash });
     } catch (err) {
       console.error(err);
-      Lib.showToast('SET TREE FAILED');
+      Lib.showToast('LIST TREE FAILED');
     }
 
     manager.busy = false;
@@ -54,7 +54,7 @@ class VendorTreeCreate extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         <View style={{ padding: 10, borderBottomWidth: 1, borderBottomColor: 'gainsboro' }}>
-          <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>VENDOR TREE CREATE</Text>
+          <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>LIST A TREE</Text>
         </View>
         {content}
       </View>
@@ -64,8 +64,13 @@ class VendorTreeCreate extends React.Component {
   renderForm() {
     const disabled = manager.busy;
     const items = [
-      { label: 'Oak Tree', value: 'Oak Tree' },
-      { label: 'Pines', value: 'Pines' }
+      { label: 'Banyan', value: 'Banyan' },
+      { label: 'Elm', value: 'Elm' },
+      { label: 'Mango', value: 'Mango' },
+      { label: 'Neem', value: 'Neem' },
+      { label: 'Oak', value: 'Oak' },
+      { label: 'Pine', value: 'Pine' },
+      { label: 'Other', value: 'Other' }
     ];
     const installments = [
       { label: '3 months', value: '3' },
@@ -128,7 +133,7 @@ class VendorTreeCreate extends React.Component {
 
             </Picker>
             <Text> </Text>
-            <Text>Initial Photo IPFS Hash:</Text>
+            <Text>Photo:</Text>
             <UploadIPFS onUpload={({ hash, url, gps }) => {
               this.setState({ initialPhotoIpfsHash: hash, gps: gps })
             }} />

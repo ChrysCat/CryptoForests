@@ -51,7 +51,7 @@ class VendorTreeList extends React.Component {
           <Text style={{ textAlign: 'left' }}>State: {state}</Text>
         </View>
         <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center' }} onPress={() => this.props.history.push('/vendor-submit-proof/' + id)}>
-          <Icon name="camera" size={30} color={'gray'} />
+          <Icon name="camera" size={30} color={'gray'} title="Submit proof"/>
         </TouchableOpacity>
       </View>
     );
@@ -81,11 +81,11 @@ class VendorTreeList extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         <View style={{ padding: 10, borderBottomWidth: 1, borderBottomColor: 'gainsboro' }}>
-          <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>VENDOR TREE LIST</Text>
+          <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>TREES LISTED BY YOU</Text>
         </View>
         {this.renderList()}
         <View style={{ padding: 10, borderTopWidth: 1, borderTopColor: 'gainsboro' }}>
-          <Button disabled={disabled} title='CREATE NEW TREE' onPress={() => this.props.history.push('/vendor-tree-create')} />
+          <Button disabled={disabled} title='LIST NEW TREE' onPress={() => this.props.history.push('/vendor-tree-create')} />
           <View style={{ height: 10 }} />
           <Button disabled={disabled} title='BACK' onPress={() => this.props.history.goBack()} />
         </View>
