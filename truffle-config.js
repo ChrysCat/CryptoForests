@@ -4,6 +4,7 @@ const fs = require('fs');
 const { join } = require('path');
 
 const HDWalletProvider = require('@truffle/hdwallet-provider');
+const WalletConnectProvider = require('@walletconnect/truffle-provider').default
 
 const mnemonic = fs.readFileSync(".mnemonic").toString().trim();
 const mnemonic_rinkeby = fs.readFileSync(".mnemonic_rinkeby").toString().trim();
@@ -34,6 +35,10 @@ module.exports = {
       port: 8545
     },
     testnet: {
+      /* If we want to deploy using wallet connect and QRCode. Mnemonic file not needed then.
+      provider: () => new WalletConnectProvider({
+        rpcUrl: "https://public-node.testnet.rsk.co",
+      }), */
       provider: () => new HDWalletProvider(mnemonic, 'https://public-node.testnet.rsk.co', 0, 10, true, "m/44'/37310'/0'/0/"),
       network_id: 31,
       gasPrice: Math.floor(minimumGasPriceTestnet * 1.1),
