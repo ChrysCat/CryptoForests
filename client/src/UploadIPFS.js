@@ -41,7 +41,7 @@ class UploadIPFS extends React.Component {
         }
 
         console.log(reader.result);
-        const buffer = new Buffer(reader.result);
+        const buffer = Buffer.from(reader.result);
 
         resolve({ buffer, gps });
       };
